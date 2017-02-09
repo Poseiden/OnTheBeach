@@ -32,5 +32,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-redis")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile("org.springframework.security:spring-security-web")
+    compile("org.springframework.security:spring-security-config")
     testCompile("junit:junit")
 }

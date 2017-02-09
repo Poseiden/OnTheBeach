@@ -2,10 +2,9 @@ package hello.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 
 public class Subject {
-    @Id
+    @JsonProperty("_id")
     private ObjectId id;
 
     @JsonProperty

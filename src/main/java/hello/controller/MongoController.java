@@ -2,8 +2,10 @@ package hello.controller;
 
 import hello.entity.Student;
 import hello.repository.StudentRepo;
+import hello.vo.SubjectVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @RestController
@@ -38,9 +43,11 @@ public class MongoController {
     }
 
     @GetMapping("/age={age}")
-    public List<Student> findByAge(@PathVariable String age) {
+    public List<SubjectVO> findByAge(@PathVariable String age) {
         Criteria criteria = where("age").is(age);
-        return mongoTemplate.find(new Query(criteria), Student.class);
+
+        Aggregation aggregation = newAggregation(unwind("subjects"), match(criteria));
+        return mongoTemplate.aggregate(aggregation, "student", SubjectVO.class).getMappedResults();
     }
 
     @GetMapping("/subject={subjectName}")

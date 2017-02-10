@@ -23,7 +23,7 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return null;
+        return this.userPrivilege.getUserName();
     }
 
     @Override
@@ -34,26 +34,26 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public Object getCredentials() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Object getDetails() {
-        return null;
+        return this.userPrivilege;
     }
 
     @Override
     public Object getPrincipal() {
-        return null;
+        return this.userPrivilege;
     }
 
     @Override
     public boolean isAuthenticated() {
-        return false;
+        return true;
     }
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-
+        throw new IllegalArgumentException();
     }
 }

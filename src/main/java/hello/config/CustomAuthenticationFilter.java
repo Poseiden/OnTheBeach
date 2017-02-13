@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Component
@@ -26,7 +29,12 @@ public class CustomAuthenticationFilter extends AbstractPreAuthenticatedProcessi
         String token = request.getHeader(AUTHORIZATION);
 
         if (token != null) {
-            return new UserPrivilege();
+            UserPrivilege userPrivilege = new UserPrivilege();
+            userPrivilege.setUserName("test");
+            List<String> list = new ArrayList<>();
+            list.add("ABC");
+            userPrivilege.setPrivilegeCodes(list);
+            return userPrivilege;
         } else {
             return null;
         }
